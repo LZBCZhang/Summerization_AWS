@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Upload File</title>
+        <!-- facon 1 : apres l'install sws-sdk , j'ai utilisé browserify bundler cette dependance  -->
+        <!-- <script src='bundle.js'></script> -->  
+        <!-- facon 2 : généré un script SDK personalisé via le site https://sdk.amazonaws.com/builder/js/#-->
+        <script src="scripts/bundle.js"></script>
+
+        <script>
+          function upload() {
+
+            console.log(document.getElementById('fileid').files[0]);
+            var fileObj = document.getElementById('fileid').files[0];
+            var S3 = new AWS.S3({apiversion: "2006-03-01"});
+
+            var fileName = fileObj.name;
+
+            S3.putObject({
+                Bucket: "test-apigateway-postman",
+                Key: fileName,
+                Body: fileObj,
+                
+            }, function(err, data) {
+                if (err) {
+                return console.log('ERROR', err.message);
+                }
+                alert('Successfully ');
+            });
+
+         }
+        </script>
+    </head>
+    <body>
+        <input id='fileid' type='file' name='myFile' />
+        <input type='button' value='Submit' onclick="upload()" />
+    </body>
+</html>

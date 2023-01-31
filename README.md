@@ -1,0 +1,1 @@
+# Summerization interview and prepare a liste of importants points 
